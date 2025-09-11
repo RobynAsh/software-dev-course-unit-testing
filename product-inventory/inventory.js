@@ -1,18 +1,32 @@
-function calculateDiscount(price, discountRate) {
+// calculateDiscount
+
+function calculateDiscount(price, discountPercent) {
+    let discountRate = discountPercent / 100;
     if (typeof price !== 'number' || typeof discountRate !== 'number') return null;
     if (discountRate < 0 || discountRate > 1) return null;
-    // TODO: Implement logic
-    return null;
+    
+    const discountAmount = price * discountRate;
+    const finalPrice = price - discountAmount;
+    
+    return finalPrice;
 }
 
+// filterProducts
 function filterProducts(products, callback) {
     if (!Array.isArray(products) || typeof callback !== 'function') return [];
-    // TODO: Implement filtering logic
-    return [];
+  
+    return products.filter(callback);
 }
+
+//sortInventory
 
 function sortInventory(inventory, key) {
     if (!Array.isArray(inventory) || typeof key !== 'string') return [];
-    // TODO: Implement sorting logic
-    return [];
+    return inventory.sort((a, b) => {
+        if (a[key] < b[key]) return -1;
+        if (a[key] > b[key]) return 1;
+        return 0;
+    });
 }
+
+module.exports = { calculateDiscount, filterProducts, sortInventory };
