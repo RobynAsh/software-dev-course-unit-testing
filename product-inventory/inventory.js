@@ -1,3 +1,5 @@
+// calculateDiscount
+
 function calculateDiscount(price, discountPercent) {
     let discountRate = discountPercent / 100;
     if (typeof price !== 'number' || typeof discountRate !== 'number') return null;
@@ -9,11 +11,14 @@ function calculateDiscount(price, discountPercent) {
     return finalPrice;
 }
 
+// filterProducts
 function filterProducts(products, callback) {
     if (!Array.isArray(products) || typeof callback !== 'function') return [];
   
     return products.filter(callback);
 }
+
+//sortInventory
 
 function sortInventory(inventory, key) {
     if (!Array.isArray(inventory) || typeof key !== 'string') return [];
