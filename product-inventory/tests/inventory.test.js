@@ -66,3 +66,28 @@ describe("The filterProducts function", () => {
 });
 
 
+// sortInventory
+
+describe("The sortInventory function", () => {
+  // Positive
+  test("sorts inventory by the given key in ascending order", () => {
+    const result = sortInventory([...sampleData], "id");
+    const ids = result.map((p) => p.id);
+    expect(ids).toEqual(ids.slice().sort((a, b) => a - b));
+  });
+
+  // Negative
+  test("returns an empty array when inventory is not an array", () => {
+    expect(sortInventory("not an array", "id")).toEqual([]);
+  });
+
+  // Negative
+  test("returns an empty array when the key is not a string", () => {
+    expect(sortInventory(sampleData, 123)).toEqual([]);
+  });
+
+  // Edge
+  test("returns an empty array when inventory is empty", () => {
+    expect(sortInventory([], "id")).toEqual([]);
+  });
+});
