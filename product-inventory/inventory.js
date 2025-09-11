@@ -17,8 +17,11 @@ function filterProducts(products, callback) {
 
 function sortInventory(inventory, key) {
     if (!Array.isArray(inventory) || typeof key !== 'string') return [];
-    // TODO: Implement sorting logic
-    return [];
+    return inventory.sort((a, b) => {
+        if (a[key] < b[key]) return -1;
+        if (a[key] > b[key]) return 1;
+        return 0;
+    });
 }
 
 module.exports = { calculateDiscount, filterProducts, sortInventory };

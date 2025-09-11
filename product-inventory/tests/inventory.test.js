@@ -10,34 +10,59 @@ const sampleData = [
     { id: 85, name: "Hot Pockets", price: 250.99 },  
 ];
 
+// calculateDiscount
 describe("The calculateDiscount function", () => {
-    // Positive Test 
-    test ("zero percent returns original price", () => {
-        expect(calculateDiscount(42, 0)).toBe(42.00);
-    });
+  // Positive
+  test("returns the original price when discount is 0 percent", () => {
+    expect(calculateDiscount(42, 0)).toBe(42);
+  });
 
-    test ("hundred percent returns zero", () => {
-        expect(calculateDiscount(42, 100)).toBe(0.00);
-    });
-    // Negative Test
-    test("returns null if NaN", () => {
-        expect(calculateDiscount(" ", 10)).toBeNull();
-    });
-    // Edge case test
-    test("returns 0 when price is 0 regardless of discount", () => {
-        expect(calculateDiscount(0, 50)).toBe(0);
-    });
-    
+  // Positive
+  test("returns 0 when discount is 100 percent", () => {
+    expect(calculateDiscount(42, 100)).toBe(0);
+  });
+
+  // Negative
+  test("returns null when the price is not a number", () => {
+    expect(calculateDiscount(" ", 10)).toBeNull();
+  });
+
+  // Negative
+  test("returns null when discount is greater than 100 percent", () => {
+    expect(calculateDiscount(50, 150)).toBeNull();
+  });
+
+  // Edge
+  test("returns 0 when the price is 0 regardless of discount", () => {
+    expect(calculateDiscount(0, 50)).toBe(0);
+  });
 });
 
+
+// filterProducts
+
 describe("The filterProducts function", () => {
-    test("Should be a string.", () => {
-        expect(filterProducts("Nuka-Cola", sampleData)).toBe("Nuka-Cola")
-    });
-    test("Should return an array.", () => {
-        expect(Array.isArray(filterProducts("Lamp", sampleData))).toBe(true)
-    }
+  // Positive
+  test("returns products that match the callback condition", () => {
+    const result = filterProducts(sampleData, (p) => p.price > 100);
+    expect(result.every((p) => p.price > 100)).toBe(true);
+  });
+
+  // Negative
+  test("returns an empty array when products is not an array", () => {
+    expect(filterProducts("not an array", (p) => p.price > 100)).toEqual([]);
+  });
+
+  // Negative
+  test("returns an empty array when the callback is not a function", () => {
+    expect(filterProducts(sampleData, "not a function")).toEqual([]);
+  });
+
+  // Edge
+  test("returns an empty array when no products match the condition", () => {
+    const result = filterProducts(sampleData, (p) => p.price > 5000);
+    expect(result).toEqual([]);
+  });
+});
 
 
-)
-})
